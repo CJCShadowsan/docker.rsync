@@ -57,7 +57,7 @@ Start server on `foo.bar.com`
     # docker run --name=rsync_server -d -p 2222:22 -v server_vol_to_sync:/data \
                  -e SSH_AUTH_KEY_1="<SSH KEY FROM rsync_client>" \
                  -e SSH_AUTH_KEY_n="<SSH KEY FROM rsync_client_n>" \
-             eeacms/rsync server
+             ghcr.io/cjcshadowsan/docker.rsync:master server
 
 ### Verify that it works
 
@@ -79,7 +79,7 @@ Bring the `file` on client:
 1. Start **rsync client** on host from where do you want to migrate data (ex. production). 
 
     Infrastructures -> Hosts ->  Add Container
-    * Select image: eeacms/rsync
+    * Select image: ghcr.io/cjcshadowsan/docker.rsync:master
     * Command: sh
     * Volumes -> Volumes from: Select source container
 
@@ -88,7 +88,7 @@ Bring the `file` on client:
 2. Start **rsync server** on host from where do you want to migrate data (ex. devel). The destination container should be temporarily moved to an accessible server ( if it's not on one ) .
 
     Infrastructures -> Hosts ->  Add Container
-    * Select image: eeacms/rsync
+    * Select image: ghcr.io/cjcshadowsan/docker.rsync:master
     * Port map -> +(add) : 2222:22
     * Command: server
     * Add environment variable: SSH_AUTH_KEY="<SSH-KEY-FROM-R-CLIENT-ABOVE>"
