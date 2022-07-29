@@ -6,24 +6,24 @@ A simple rsync server/client Docker image to easily rsync data within Docker vol
 
 Get files from remote server within a `docker volume`:
 
-    $ docker run --rm -v blobstorage:/data/ cjcshadowsan/rsync \
+    $ docker run --rm -v blobstorage:/data/ ghcr.io/cjcshadowsan/ansible_container:master  \
              rsync -avzx --numeric-ids user@remote.server.domain.or.ip:/var/local/blobs/ /data/
 
 Get files from `remote server` to a `data container`:
 
     $ docker run -d --name data -v /data busybox
-    $ docker run --rm --volumes-from=data cjcshadowsan/rsync \
+    $ docker run --rm --volumes-from=data ghcr.io/cjcshadowsan/ansible_container:master \
              rsync -avz user@remote.server.domain.or.ip:/var/local/blobs/ /data/
 
 Get files from `local server mounted in container` to a `remote server`:
 
-    $ docker run -d --name data -v /data.you want to mount busybox
-    $ docker run --net=host --rm --volumes-from=data cjcshadowsan/rsync \
+    $ docker run -d --name data -v /data.you.want.to.mount busybox
+    $ docker run --net=host --rm --volumes-from=data ghcr.io/cjcshadowsan/ansible_container:master \
              rsync -azrP user@remote.server.domain.or.ip:/var/local/blobs/ /data/
 
 ## Helper Script
 
-A simple helper script that runs these commands is here, and if you alias it back to bash_aliases you can just run simple arguments to it like so:
+A simple helper script that runs these commands is here, and if you alias it back to bash_aliases you can just run simple arguments to it in a directory just above where you want to rsync (check the helper file!!! It's just an example!) like so:
 
     $ echo "rsync=/path/to/docker/rsync" >> ~/.bash_aliases
     $ rsync <command args - remember client and server are special args!>
