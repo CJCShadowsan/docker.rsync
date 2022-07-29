@@ -6,19 +6,19 @@ A simple rsync server/client Docker image to easily rsync data within Docker vol
 
 Get files from remote server within a `docker volume`:
 
-    $ docker run --rm -v blobstorage:/data/ ghcr.io/cjcshadowsan/ansible_container:master  \
+    $ docker run --rm -v blobstorage:/data/ ghcr.io/cjcshadowsan/docker.rsync:master  \
              rsync -avzx --numeric-ids user@remote.server.domain.or.ip:/var/local/blobs/ /data/
 
 Get files from `remote server` to a `data container`:
 
     $ docker run -d --name data -v /data busybox
-    $ docker run --rm --volumes-from=data ghcr.io/cjcshadowsan/ansible_container:master \
+    $ docker run --rm --volumes-from=data ghcr.io/cjcshadowsan/docker.rsync:master \
              rsync -avz user@remote.server.domain.or.ip:/var/local/blobs/ /data/
 
 Get files from `local server mounted in container` to a `remote server`:
 
     $ docker run -d --name data -v /data.you.want.to.mount busybox
-    $ docker run --net=host --rm --volumes-from=data ghcr.io/cjcshadowsan/ansible_container:master \
+    $ docker run --net=host --rm --volumes-from=data ghcr.io/cjcshadowsan/docker.rsync:master \
              rsync -azrP user@remote.server.domain.or.ip:/var/local/blobs/ /data/
 
 ## Helper Script
